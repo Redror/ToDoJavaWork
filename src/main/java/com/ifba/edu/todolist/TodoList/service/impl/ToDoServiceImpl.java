@@ -31,7 +31,7 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public ToDoDTO update(ToDoDTO toDoDTO) {
         if (!toDoRepository.existsById(toDoDTO.getId())){
-            throw new NotFoundException("Tarefa não encontrada");
+            throw new NotFoundException("Tarefa não com id "+toDoDTO.getId()+" não encontrada");
         };
         return create(toDoDTO);
     }
@@ -39,7 +39,7 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public void delete(Long id) {
         if (!toDoRepository.existsById(id)){
-            throw new NotFoundException("Tarefa não encontrada");
+            throw new NotFoundException("Tarefa não com id "+id+" não encontrada");
         };
         toDoRepository.deleteById(id);
     }
@@ -57,7 +57,7 @@ public class ToDoServiceImpl implements ToDoService {
     public ToDoDTO findById(Long id) {
         Optional<ToDo> toDo = toDoRepository.findById(id);
         if (!toDo.isPresent()){
-            throw new NotFoundException("Tarefa não encontrada");
+            throw new NotFoundException("Tarefa não com id "+id+" não encontrada");
         };
         return toDoMapper.toToDoDTO(toDo.get());
     }
